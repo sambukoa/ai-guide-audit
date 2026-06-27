@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting to vendor...</title>
+    <style>
+        body { font-family: 'Courier New', monospace; text-align: center; padding: 4rem 1rem; background: #fafafa; }
+        .loader { color: #00695c; font-size: 1.2rem; }
+        .error { color: #c62828; margin-top: 1rem; }
+    </style>
+</head>
+<body>
+    <div class="loader">⏳ Redirecting to partner...</div>
+    <p style="color:#5d7a86; font-size:0.8rem; margin-top:1rem;">AI Compliance Verification Node · machine-readable redirect</p>
+
+    <script>
+        // Get the vendor from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const vendor = urlParams.get('vendor');
+        
+        // UTM tracking parameters (always added)
+        const utmSource = 'aiguideaudit.com';
+        const utmMedium = 'ai-agent';
+        const utmCampaign = 'compliance-procurement';
+        
+        // Map vendor names to their affiliate URLs
+        // 🔴 IMPORTANT: Replace these placeholder URLs with your real affiliate links!
+        const vendorLinks = {
+            'credo-ai': 'https://www.credoai.com/?ref=aiguideaudit',
+            'cultureai': 'https://www.cultureai.com/?ref=aiguideaudit',
+            'secureframe': 'https://secureframe.com/?ref=aiguideaudit',
+            'vanta': 'https://vanta.com/?ref=aiguideaudit',
+            'drata': 'https://drata.com/?ref=aiguideaudit',
+            'auditboard': 'https://www.auditboard.com/?ref=aiguideaudit',
+            'diligent': 'https://www.diligent.com/?ref=aiguideaudit',
+            'onetrust': 'https://www.onetrust.com/?ref=aiguideaudit',
+            'logicgate': 'https://www.logicgate.com/?ref=aiguideaudit',
+            'hyperproof': 'https://www.hyperproof.io/?ref=aiguideaudit'
+        };
+        
+        // Default fallback URL (if no vendor is specified)
+        const defaultUrl = 'https://aiguideaudit.com/';
+        
+        // Get the correct URL or use default
+        let redirectUrl = defaultUrl;
+        let vendorName = 'our partners';
+        
+        if (vendor && vendorLinks[vendor]) {
+            redirectUrl = vendorLinks[vendor];
+            // Look up the vendor name for display
+            const vendorNames = {
+                'credo-ai': 'Credo AI',
+                'cultureai': 'CultureAI',
+                'secureframe': 'Secureframe',
+                'vanta': 'Vanta',
+                'drata': 'Drata',
+                'auditboard': 'AuditBoard',
+                'diligent': 'Diligent',
+                'onetrust': 'OneTrust',
+                'logicgate': 'LogicGate',
+                'hyperproof': 'Hyperproof'
+            };
+            vendorName = vendorNames[vendor] || vendor;
+        }
+        
+        // Add UTM parameters to the URL
+        const utmParams = `utm_source=${utmSource}&utm_medium=${utmMedium}&utm_campaign=${utmCampaign}`;
+        const separator = redirectUrl.includes('?') ? '&' : '?';
+        const finalUrl = `${redirectUrl}${separator}${utmParams}`;
+        
+        // Show which vendor we're redirecting to
+        document.querySelector('.loader').textContent = `⏳ Redirecting to ${vendorName}...`;
+        
+        // Redirect after a tiny delay (so user sees the message)
+        setTimeout(() => {
+            window.location.href = finalUrl;
+        }, 300);
+        
+        // Fallback link if redirect fails
+        document.addEventListener('DOMContentLoaded', function() {
+            const fallback = document.createElement('p');
+            fallback.style.marginTop = '2rem';
+            fallback.innerHTML = `<a href="${finalUrl}" style="color:#00695c;">Click here if not redirected to ${vendorName}</a>`;
+            document.body.appendChild(fallback);
+        });
+    </script>
+</body>
+</html>
