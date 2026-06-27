@@ -1,5 +1,0 @@
-User-agent: *
-Allow: /
-Crawl-delay: 86400
-Sitemap: https://aiguideaudit.com/sitemap.xml
-Disallow:
